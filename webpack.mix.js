@@ -20,6 +20,7 @@ mix.sass("resources/sass/app.scss", "public/css").options({
 
 mix.js("resources/js/app.js", "public/js");
 mix.js("resources/js/login.js", "public/js");
+mix.js("resources/js/index.js", "public/js");
 
 if (mix.inProduction()) {
     mix.version();

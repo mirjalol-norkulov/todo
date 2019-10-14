@@ -1,4 +1,5 @@
 import _ from "lodash";
+import moment from "moment";
 import axios from "axios";
 import Vue from "vue";
 import Vuelidate from "vuelidate";
@@ -10,6 +11,7 @@ axios.defaults.headers.common["X-CSRF-TOKEN"] = document
 
 Vue.use(Vuelidate);
 Vue.prototype.$axios = axios;
+Vue.prototype.$moment = moment;
 
 window._ = _;
 window.Vue = Vue;

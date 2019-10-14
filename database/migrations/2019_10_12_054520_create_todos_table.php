@@ -18,12 +18,8 @@ class CreateTodosTable extends Migration
             $table->bigIncrements('id');
             $table->text('task');
             $table->dateTime('due_date')->default(DB::raw("TIMESTAMP 'tomorrow'"));
-            $table->bigInteger('parent_id')->unsigned();
-            $table->foreign('parent_id')
-                ->references('id')
-                ->on('todos')
-                ->onDelete('cascade');
-
+            $table->boolean('done')->default(false);
+            $table->jsonb('sub_tasks')->nullable();
             $table->timestamps();
         });
     }

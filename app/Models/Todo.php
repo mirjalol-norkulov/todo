@@ -13,20 +13,12 @@ class Todo extends Model
     /**
      * @var array
      */
-    protected $fillable = ['task', 'due_date', 'parent_id'];
+    protected $fillable = ['task', 'due_date', 'done', 'parent_id', 'sub_tasks'];
 
     /**
      * @var array
      */
     protected $casts = [
-        'due_date' => 'datetime'
+        'sub_tasks' => 'array'
     ];
-
-    /**\
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function subTasks()
-    {
-        return $this->hasMany(self::class, 'parent_id');
-    }
 }

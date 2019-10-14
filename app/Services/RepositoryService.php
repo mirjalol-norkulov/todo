@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Models\Todo;
-use App\Repositories\UserRepository;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Prettus\Repository\Exceptions\RepositoryException;
+use App\Repositories\TodoRepository;
+use App\Repositories\UserRepository;
 
 /**
  * Class RepositoryService
@@ -24,7 +24,7 @@ class RepositoryService
             case 'user':
                 return app(UserRepository::class);
             case 'todo':
-                return app(Todo::class);
+                return app(TodoRepository::class);
             default:
                 throw new RepositoryException('Repository not found');
         }

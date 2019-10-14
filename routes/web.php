@@ -13,9 +13,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Todos\TodoController');
+Route::apiResource('/todos', 'Todos\TodoController');
 
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('auth.show_login_form');
 Route::post('/login', 'Auth\LoginController@login')->name('auth.login');
