@@ -17,10 +17,14 @@
 1. Clone this repository into your server folder.
 2. Create a new database.
 3. In the root folder of the project rename file .env.example to .env
-and specify environment variables for database:
-    * Database name
-    * Database user
-    * Database password
+and specify environment variables:
+    * Set `DB_CONNECTION` to `pgsql`
+    * Set database name
+    * Set database user
+    * Set database user password
+    * Set `APP_URL`
+    * Set `APP_DEBUG` to `false`
+    * Set `APP_ENV` to `production`
 4. After configuring database, run migrations with `php artisan migrate`
 5. After migrating tables, run seeders with `php artisan db:seed`
 ### Server configuration
