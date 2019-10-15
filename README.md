@@ -15,7 +15,7 @@
 
 ## Deployment
 1. Clone this repository into your server folder.
-2. Create a new database.
+2. Create a new database in postgres.
 3. In the root folder of the project rename file .env.example to .env
 and specify environment variables:
     * Set `DB_CONNECTION` to `pgsql`
