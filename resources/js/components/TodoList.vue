@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <draggable :list="todos" @change="onSortOrderChange">
         <todo
             class="mb-5"
             v-for="todo in todos"
@@ -8,11 +8,13 @@
             @update="onTodoUpdate"
             @delete="onTodoDelete"
         />
-    </div>
+    </draggable>
 </template>
 
 <script>
+import draggable from "vuedraggable";
 import Todo from "./Todo";
+
 export default {
     name: "TodoList",
     components: { Todo },
@@ -37,6 +39,11 @@ export default {
         onTodoDelete(todo) {
             const index = _.findIndex(this.todos, todo);
             this.todos.splice(index, 1);
+        },
+        onSortOrderChange(event) {
+            this.$axios.put("/todos/reorder", {
+                ids: this.todos.map(todo => todo.id)
+            });
         }
     }
 };

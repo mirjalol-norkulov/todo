@@ -20,6 +20,12 @@ class CreateTodosTable extends Migration
             $table->dateTime('due_date')->default(DB::raw("TIMESTAMP 'tomorrow'"));
             $table->boolean('done')->default(false);
             $table->jsonb('sub_tasks')->nullable();
+            $table->bigInteger('order')->default(1);
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('CASCADE');
             $table->timestamps();
         });
     }

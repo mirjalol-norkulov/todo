@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Todos;
 
+use App\Criterias\Todos\FilterByUserCriteria;
 use App\Criterias\Todos\UndoneTodosCriteria;
+use App\Http\Requests\Todos\TodoReorderRequest;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -38,6 +40,7 @@ class TodoController extends Controller
             app('service')
                 ->repository('todo')
                 ->pushCriteria(new UndoneTodosCriteria())
+                ->pushCriteria(new FilterByUserCriteria($request))
                 ->paginate($request->get('limit', 10))
         );
     }
@@ -67,7 +70,8 @@ class TodoController extends Controller
                     'task' => $request->task,
                     'due_date' => $request->get('due_date', Carbon::tomorrow()),
                     'done' => false,
-                    'sub_tasks' => $request->get('sub_tasks', [])
+                    'sub_tasks' => $request->get('sub_tasks', []),
+                    'user_id' => $request->user()->id
                 ]));
     }
 
@@ -114,5 +118,17 @@ class TodoController extends Controller
             ->repository('todo')
             ->delete($id);
         return new JsonResponse('Successfully deleted', 204);
+    }
+
+    /**
+     * @param TodoReorderRequest $request
+     * @return JsonResponse
+     */
+    public function reorder(TodoReorderRequest $request)
+    {
+        app('service')->repository('todo')
+            ->setNewOrder($request->get('ids'));
+
+        return new JsonResponse(['success' => true]);
     }
 }

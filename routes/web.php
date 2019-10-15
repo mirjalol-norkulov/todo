@@ -14,6 +14,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'Todos\TodoController');
+Route::put('/todos/reorder', 'Todos\TodoController@reorder');
 Route::apiResource('/todos', 'Todos\TodoController');
 
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('auth.show_login_form');

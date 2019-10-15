@@ -21,4 +21,9 @@ class TodoRepository extends BaseRepository
     {
         return Todo::class;
     }
+
+    public function setNewOrder($ids, int $startOrder = 1, string $primaryKeyColumn = null)
+    {
+        $this->model->setNewOrder($ids, $startOrder, $primaryKeyColumn);
+    }
 }

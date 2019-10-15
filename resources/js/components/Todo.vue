@@ -6,9 +6,9 @@
         >
             <i class="lni-close"></i>
         </button>
-        <div class="flex rounded p-5 items-center">
+        <div class="rounded p-5 items-center">
             <div class="flex items-center flex-grow">
-                <div class="flex-grow">{{ todo.task }}</div>
+                <div class="flex-grow font-medium text-md">{{ todo.task }}</div>
                 <div class="text-xs bg-gray-200 rounded-full p-2">
                     {{
                         $moment(todo.due_date).format(
@@ -31,6 +31,24 @@
                     <i class="lni-check-mark-circle"></i>
                 </button>
             </div>
+        </div>
+        <div v-if="todo.sub_tasks" class="mt-3 border-t border-gray-200 p-5">
+            <div class="text-sm font-bold">Sub tasks</div>
+            <ol class="list-decimal p-5">
+                <li
+                    v-for="(subTask, index) in todo.sub_tasks.sort(subTask =>
+                        subTask.done ? 1 : -1
+                    )"
+                    :key="'subTask' + index"
+                >
+                    <span
+                        class="text-sm"
+                        v-bind:class="{ 'line-through': subTask.done }"
+                    >
+                        {{ subTask.task }}
+                    </span>
+                </li>
+            </ol>
         </div>
         <edit-todo
             :todo="editingTodo"

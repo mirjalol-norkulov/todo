@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Prettus\Repository\Exceptions\RepositoryException;
 use App\Repositories\TodoRepository;
@@ -17,16 +18,26 @@ class RepositoryService
      * @param string $repository
      * @return RepositoryInterface
      * @throws RepositoryException
+     * @throws BindingResolutionException
      */
-    public function repository(string $repository)
+    public function repository(string $repository): RepositoryInterface
     {
-        switch ($repository) {
-            case 'user':
-                return app(UserRepository::class);
-            case 'todo':
-                return app(TodoRepository::class);
-            default:
-                throw new RepositoryException('Repository not found');
+        if (!$repositoryClass = $this->getRepositoryClass($repository)) {
+            throw new RepositoryException("Repository with name \"$repository\" not found");
         }
+
+        return app()->make($repositoryClass);
+    }
+
+    /**
+     * @param string $repository
+     * @return string|mixed
+     */
+    private function getRepositoryClass(string $repository)
+    {
+        return collect([
+            'todo' => TodoRepository::class,
+            'user' => UserRepository::class
+        ])->get($repository);
     }
 }
