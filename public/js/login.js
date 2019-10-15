@@ -2208,35 +2208,36 @@ new Vue({
 
               case 7:
                 response = _context.sent;
+                console.log("response:", response);
 
                 if (response.status === 200 && response.data.redirect) {
-                  window.location.replace(data.redirect);
+                  window.location.replace(response.data.redirect);
                 }
 
-                _context.next = 17;
+                _context.next = 18;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 12:
+                _context.prev = 12;
                 _context.t0 = _context["catch"](0);
 
                 if (!(_context.t0.response.status === 422)) {
-                  _context.next = 16;
+                  _context.next = 17;
                   break;
                 }
 
                 alert(_context.t0.response.data.message);
                 return _context.abrupt("return");
 
-              case 16:
+              case 17:
                 alert(_context.t0.message);
 
-              case 17:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 11]]);
+        }, _callee, this, [[0, 12]]);
       }));
 
       function login() {

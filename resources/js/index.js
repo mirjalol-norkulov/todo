@@ -1,14 +1,17 @@
 import TodoList from "./components/TodoList";
 import CreateTodo from "./components/CreateTodo";
+import Profile from "./components/Profile";
 new Vue({
     el: "#todo",
-    components: { CreateTodo, TodoList },
+    components: { CreateTodo, TodoList, Profile },
     data: {
+        user: null,
         todos: [],
         links: null,
         limit: 10
     },
     created() {
+        this.getUser();
         this.getTodos("/todos");
     },
     computed: {
@@ -17,6 +20,14 @@ new Vue({
         }
     },
     methods: {
+        async getUser() {
+            try {
+                const { data } = await this.$axios.get("/user");
+                this.user = data.data;
+            } catch (e) {
+                alert(e.message);
+            }
+        },
         async getTodos(url) {
             try {
                 const { data } = await this.$axios.get(url, {

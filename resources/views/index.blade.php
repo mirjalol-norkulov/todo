@@ -10,6 +10,7 @@
 
 @section('body')
     <main id="todo" class="bg-gray-100 min-h-screen">
+        <profile v-if="user" :user="user"></profile>
         <div class="container mx-auto">
             <div class="flex">
                 <div class="w-1/2">

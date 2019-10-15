@@ -39,7 +39,7 @@ new Vue({
                 );
 
                 if (response.status === 200 && response.data.redirect) {
-                    window.location.replace(data.redirect);
+                    window.location.replace(response.data.redirect);
                 }
             } catch (e) {
                 if (e.response.status === 422) {

@@ -32,20 +32,16 @@
                 </button>
             </div>
         </div>
-        <div v-if="todo.sub_tasks" class="mt-3 border-t border-gray-200 p-5">
+        <div v-if="todo.sub_tasks.length" class="mt-3 border-t border-gray-200 p-5">
             <div class="text-sm font-bold">Sub tasks</div>
             <ol class="list-decimal p-5">
-                <li
-                    v-for="(subTask, index) in todo.sub_tasks.sort(subTask =>
-                        subTask.done ? 1 : -1
-                    )"
-                    :key="'subTask' + index"
-                >
-                    <span
-                        class="text-sm"
-                        v-bind:class="{ 'line-through': subTask.done }"
-                    >
+                <li v-for="(subTask, index) in subTasks">
+                    <span class="text-sm">
                         {{ subTask.task }}
+                        <i
+                            v-if="subTask.done"
+                            class="ml-1 text-green-500 lni-check-mark-circle"
+                        ></i>
                     </span>
                 </li>
             </ol>
@@ -62,6 +58,7 @@
 <script>
 import CheckBox from "./CheckBox";
 import EditTodo from "./EditTodo";
+
 export default {
     name: "Todo",
     props: {
@@ -79,6 +76,9 @@ export default {
     computed: {
         editingTodo() {
             return _.cloneDeep(this.todo);
+        },
+        subTasks() {
+            return this.todo.sub_tasks.sort(subTask => (subTask.done ? 1 : -1));
         }
     },
     components: { CheckBox, EditTodo },
@@ -108,6 +108,7 @@ export default {
 .text-xxs {
     font-size: 0.5rem;
 }
+
 .delete-button {
     position: absolute;
     right: 0;

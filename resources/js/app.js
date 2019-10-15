@@ -4,6 +4,7 @@ import axios from "axios";
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 
+axios.defaults.baseURL = "/api/";
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.headers.common["X-CSRF-TOKEN"] = document
     .querySelector('meta[name="csrf-token"]')

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Redirector;
 
 /**
  * Class LoginController
@@ -25,12 +28,6 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -50,5 +47,29 @@ class LoginController extends Controller
 
         return $this->authenticated($request, $this->guard()->user())
             ?: $request->ajax() ? ['redirect' => $this->redirectPath()] : redirect()->intended($this->redirectPath());
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse|RedirectResponse|Redirector
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return
+            $this->loggedOut($request) ?:
+                $request->ajax() ?
+                    new JsonResponse(['redirect' => route('auth.show_login_form')]) : redirect('/');
+    }
+
+    /**
+     * @return string
+     */
+    public function redirectPath()
+    {
+        return route('index');
     }
 }
