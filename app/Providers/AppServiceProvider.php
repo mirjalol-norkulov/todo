@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\RepositoryService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Repository service
+        $this->app->singleton('service', RepositoryService::class);
     }
 }
