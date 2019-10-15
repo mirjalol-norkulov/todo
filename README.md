@@ -9,6 +9,25 @@
 6. Nested tasks. (Big task can have multiple sub-tasks)
 7. Quick entry. A text field when a text is written and hit "Enter" a new task is created
 
+## Used packages
+1. Backend
+   * [Laravel 6](https://laravel.com)
+   * [Spatie Eloquent sortable package](https://github.com/spatie/eloquent-sortable)
+   * [Laravel repository package](https://github.com/andersao/l5-repository)
+2. Frontend
+   * [Vue.js 2.6](https://vuejs.org)
+   * [Tailwind Css](https://tailwindcss.com)
+   * [axios](https://github.com/axios/axios)
+   * [lodash](https://lodash.com)
+   * [moment.js](https://momentjs.com)
+   * [Vuelidate](https://github.com/vuelidate/vuelidate)
+   * [Vue draggable](https://github.com/SortableJS/Vue.Draggable)
+   * [Vue2 DatePicker](https://github.com/mengxiong10/vue2-datepicker)
+
+## Known issues
+1. Vue2 datepicker icon shows in wrong place
+2. Not showing validation error messages from server
+
 ## Use these credentials to login
 * Email: john.doe@gmail.com
 * Password: 123456789
